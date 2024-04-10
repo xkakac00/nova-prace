@@ -86,7 +86,7 @@ function nahodne_heslo(){
 }
 function konec(){
 	echo "Program byl úspěšně ukončen" | tee -a "$LOG_FILE"
-	exit 1
+	exit 0
 }
 
 function zmena_tajneho_klice(){
@@ -116,7 +116,7 @@ function main_flow(){
 		2)	
 		#Soubor s hesly se rozsifruje, uzivatel napise platformu a skript mu vypise heslo a nasledne se znovu zasifruje pomoci tajneho klice.
 		 if [ -e hesla.txt.enc ];then
-		    echo -e "${RED} Nemohu vypsat hesla, protože zašifrovaný soubor neexistuje ${NIC}"
+		    echo -e "${RED} Nemohu vypsat hesla, protože zašifrovaný soubor neexistuje ${NC}"
 		 else
 			 echo "Zadejte tajný klíč k dešifrování"
 		         read -s tajnyklic
@@ -139,11 +139,11 @@ function main_flow(){
 		zmena_tajneho_klice starytajnyklic novytajnyklic				
 	;;
 		5)
-		# Skript se ukonci s chybovym kodem 1
+		
 		 konec
 	;;	
 		*)
-		echo "{RED} Neplatná volba, spuste šifrator znovu. ${NIC}"
+		echo "{RED} Neplatná volba, spuste šifrator znovu. ${NC}"
 	;;
 	esac
 }
