@@ -1,18 +1,15 @@
 #!/bin/bash 
-
-#Globální proměnné
 date=$(date +%Y-%m-%d-%M-%H)
-RED='\033[031m'
-GREEN='\033[032m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
 NC='\033[0m'
-
 
 function is_root(){
 	user=$(whoami)
 	if [ "$user" == "root" ];then
 		main_flow
 	else
-		echo "${RED}To use this script, you must be superuser root.${NC}"
+		echo -e "${RED}To use this script, you must be superuser root.${NC}"
 		exit 1
 	fi
 }
@@ -26,7 +23,7 @@ function disk_space(){
 		used=$(echo "$line" | awk '{print $1}' | sed 's/%//')
 		
 		if [ "$used" -ge 80 ];then
-			echo "${RED}Warning: partition $partition has less than 20% free space.(Usage:$used%)${NC}"
+			echo -e "${RED}Warning: partition $partition has less than 20% free space.(Usage:$used%)${NC}"
 		else
 			echo -e "${GREEN}Disk partition $partition is within safe limits. (Usage: $used%)${NC}" 
 		fi
@@ -71,15 +68,15 @@ function system_update(){
 	echo  "Check for updates..."
 	apt-get update
 	if [ "$?" -eq 0 ];then
-		echo "${GREEN}The package list updated successfully...${NC}"
+		echo -e "${GREEN}The package list updated successfully...${NC}"
 		apt-get upgrade
 		if [ "$?" -eq 0 ];then
-			echo "${GREEN}The packages have been updated.${NC}"
+			echo -e "${GREEN}The packages have been updated.${NC}"
 		else
-			echo "${RED}Warning: The operation ended with an unexpected error.${NC}"
+			echo -e "${RED}Warning: The operation ended with an unexpected error.${NC}"
 		fi
 	else
-		echo "${RED}Warning: The operation ended with an unexpected error.${NC}"	
+		echo -e "${RED}Warning: The operation ended with an unexpected error.${NC}"	
 	fi	
 }
 
